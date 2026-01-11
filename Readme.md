@@ -258,7 +258,7 @@ MIT License - see [LICENSE](LICENSE) file
 
 ## Author
 
-([@Lordcodex_](https://x.com/Lordcodex_))
+[@Lordcodex164](https://x.com/Lordcodex164)
 
 ---
 
