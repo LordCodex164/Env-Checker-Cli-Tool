@@ -1,4 +1,4 @@
-#envcheck
+# envcheck
 
 Your Go CLI Tool thaat validates environment variables aganist a schema
 
