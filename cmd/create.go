@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"github.com/spf13/cobra"
-	"gopkg.in/yaml.v3"
 	"strings"
+
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+	"gopkg.in/yaml.v3"
 )
 
 type EnvRules struct {
@@ -36,7 +38,7 @@ var createCmd = &cobra.Command{
 
 	Edit the generated file to match your application's needs.`,
 
-		Example: `  # Create schema.yaml in current directory
+	Example: `  # Create schema.yaml in current directory
 	envcheck create
 
 	# Create with custom filename
@@ -46,6 +48,9 @@ var createCmd = &cobra.Command{
 	envcheck create && vim schema.yaml`,
 
 	RunE: func(cmd *cobra.Command, args []string) error {
+		viper.BindPFlag("schema", cmd.Flags().Lookup("output"))
+		outputFile = viper.GetString("schema")
+		fmt.Println(">>>", outputFile)
 		return CreateSchemaTemplate(outputFile)
 	},
 }
@@ -59,7 +64,7 @@ func init() {
 		&outputFile,
 		"output",
 		"o",
-		"schema.yaml",
+		outputFile,
 		"output file path",
 	)
 }
@@ -103,7 +108,7 @@ func CreateSchemaTemplate(filename string) error {
 	if err != nil {
 		panic(err)
 	}
-	fileName := "schema.yaml"
+	fileName := strings.TrimSpace(outputFile)
 	err = os.WriteFile(fileName, data, 0644)
 	if err != nil {
 		log.Fatalf("error: %v", err)

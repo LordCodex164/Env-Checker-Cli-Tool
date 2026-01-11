@@ -30,6 +30,8 @@
 
 - exit code
 
+- Flag messages
+
 - configuration file support
 
 - better documentation

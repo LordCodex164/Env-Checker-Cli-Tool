@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	"gopkg.in/yaml.v3"
 )
 
@@ -18,6 +19,13 @@ var validateCmd = &cobra.Command{
 	Use:   "validate",
 	Short: "Validate a template schema.yaml file",
 	RunE: func(cmd *cobra.Command, args []string) error {
+		viper.BindPFlag("schema", cmd.Flags().Lookup("schema"))
+		viper.BindPFlag("strict", cmd.Flags().Lookup("strict"))
+		viper.BindPFlag("verbose", cmd.Flags().Lookup("verbose"))
+		inputFile = viper.GetString("schema")
+		strict = viper.GetBool("strict")
+		verbose = viper.GetBool("verbose")
+
 		return ValidateEnvSchema(inputFile)
 	},
 	Long: `Validate current environment variables against a schema file.

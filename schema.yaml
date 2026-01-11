@@ -7,7 +7,7 @@ variables:
       description: Server port
       type: int
       required: false
-      #default: "8080"
+      default: "8080"
     - name: APP_DEBUG
       description: Enable debug mode
       type: bool
